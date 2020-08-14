@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const ProcessForm = ({ onCancel, onSave, open, processId, getProcessById, selectedProcess, clearProcessSelected, users }) => {
+const ProcessForm = ({ onCancel, onSave, open, processId, getProcessById, selectedProcess, clearProcessSelected, users, disabledSeem }) => {
   const classes = useStyles();
   const [pedingOptions] = useState([
     {'id': 'true', nome: 'Sim'},
@@ -117,6 +117,7 @@ const ProcessForm = ({ onCancel, onSave, open, processId, getProcessById, select
             <Input
               label="Parecer"
               name="seem"
+              disabled={disabledSeem}
               onChange={handleChange}
               value={values.seem}
               rows={3}

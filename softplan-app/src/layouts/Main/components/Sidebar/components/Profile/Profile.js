@@ -39,7 +39,6 @@ const Profile = ({ auth }) => {
         className={classes.avatar}
         component={RouterLink}
         src={avatar}
-        to="/meu-perfil"
       />
       <Typography className={classes.name} variant="h4"> {name} </Typography>
     </div>

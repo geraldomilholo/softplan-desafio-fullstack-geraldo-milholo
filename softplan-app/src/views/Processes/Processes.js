@@ -32,6 +32,7 @@ const ProcessView = ({ fetchProcesses, saveProcess, updateProcess, deleteProcess
   const [processId, setProcessId] = useState(null);
   const [canAdd, setCanAdd] = useState(false);
   const [canDelete, setCanDelete] = useState(false);
+  const [disabledSeem, setDisabledSeem] = useState(false);
 
   const [titles] = useState(['Nome', 'Usuários', 'Pendente']);
   const classes = useStyles();
@@ -52,6 +53,7 @@ const ProcessView = ({ fetchProcesses, saveProcess, updateProcess, deleteProcess
       setCanDelete(true);
     } else if (role && role.code === 'TRIADOR') {
       setCanAdd(true);
+      setDisabledSeem(true);
     }
   }, [role]);
 
@@ -87,6 +89,7 @@ const ProcessView = ({ fetchProcesses, saveProcess, updateProcess, deleteProcess
             canDelete={canDelete}
           />
           <ProcessForm
+            disabledSeem={disabledSeem}
             open={open}
             processId={processId}
             onCancel={() => {
