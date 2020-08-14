@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table
+@Table(name = "process", schema = "public")
 @Data
 @Builder
 @EqualsAndHashCode(callSuper = true)

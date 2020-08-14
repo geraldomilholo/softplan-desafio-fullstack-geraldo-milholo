@@ -13,41 +13,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.softplan.model.dto.UserDTO;
-import br.com.softplan.model.dto.UserPostDTO;
-import br.com.softplan.service.UserService;
+import br.com.softplan.model.dto.ProcessDTO;
+import br.com.softplan.service.ProcessService;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/processes")
+public class ProcessController {
 
 	@Autowired
-	private UserService userService;
+	private ProcessService processService;
 
 	@GetMapping
-	public ResponseEntity<List<UserDTO>> findAll() {
-		return ResponseEntity.ok(userService.findAll());
+	public ResponseEntity<List<ProcessDTO>> findAll() {
+		return ResponseEntity.ok(processService.findAll());
 	}
 
 	@GetMapping("/{userId}")
-	public ResponseEntity<UserDTO> getUsuarioById(@PathVariable String userId) {
-		return ResponseEntity.ok(userService.findById(userId));
+	public ResponseEntity<ProcessDTO> findById(@PathVariable String userId) {
+		return ResponseEntity.ok(processService.findById(userId));
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserDTO> save(@RequestBody UserPostDTO userPostDTO) {
-		return ResponseEntity.ok(userService.save(userPostDTO));
+	public ResponseEntity<ProcessDTO> save(@RequestBody ProcessDTO processDTO) {
+		return ResponseEntity.ok(processService.save(processDTO));
 	}
 	
 	@PutMapping("/{userId}")
-	public ResponseEntity<UserDTO> update(@PathVariable String usuarioId, @RequestBody UserPostDTO userPostDTO) {
-		userPostDTO.setId(usuarioId);
-		return ResponseEntity.ok(userService.save(userPostDTO));
+	public ResponseEntity<ProcessDTO> update(@PathVariable String userId, @RequestBody ProcessDTO processDTO) {
+		processDTO.setId(userId);
+		return ResponseEntity.ok(processService.save(processDTO));
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id) {
-		userService.delete(id);
+		processService.delete(id);
 		return ResponseEntity.noContent().build();
 		
 	}

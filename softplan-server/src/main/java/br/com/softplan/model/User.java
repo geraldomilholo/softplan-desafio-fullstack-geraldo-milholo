@@ -1,6 +1,5 @@
 package br.com.softplan.model;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -13,11 +12,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table
+@Table(name = "user", schema = "public")
 @Data
 @Builder
 @EqualsAndHashCode(callSuper = true)
-@AttributeOverride(name = "id", column = @Column(name = "id", length = 36))
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends BaseEntity {

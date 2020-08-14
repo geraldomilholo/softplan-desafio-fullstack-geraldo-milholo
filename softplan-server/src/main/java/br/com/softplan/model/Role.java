@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table
+@Table(name = "role", schema = "public")
 @Data
 @Builder
 @EqualsAndHashCode(callSuper = true)

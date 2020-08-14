@@ -1,6 +1,4 @@
-package br.com.softplan.model.dto;
-
-import com.sun.istack.NotNull;
+package br.com.softplan.security.model.dto;
 
 import br.com.softplan.model.Role;
 import lombok.AllArgsConstructor;
@@ -10,19 +8,18 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
-
+@AllArgsConstructor
+public class LoginDTO {
+	
 	private String id;
 	
-	@NotNull
-	private String name;
-
-	@NotNull
-	private String email;
+	private String token;
 	
-	@NotNull
 	private Role role;
+	
+	private String name;
+	
+	private String email;
 	
 }

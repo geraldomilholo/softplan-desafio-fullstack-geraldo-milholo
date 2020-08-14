@@ -44,4 +44,12 @@ public class UserProcessService {
 		return userProcessDTO;
 	}
 
+	public void deleteFromUserId(String userId) {
+		userProcessRepository.deleteAll(userProcessRepository.findByUserId(userId));
+	}
+	
+	public void deleteFromProcessId(String processId) {
+		userProcessRepository.deleteAll(userProcessRepository.findByProcessId(processId));
+	}
+
 }
