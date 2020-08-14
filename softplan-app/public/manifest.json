@@ -1,0 +1,8 @@
+{
+  "short_name": "Softplan",
+  "name": "Softplan - Gestão de Processos",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
