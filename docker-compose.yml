@@ -1,0 +1,19 @@
+version: '3.1'
+services:
+  app:
+    container_name: app-softplan
+    image: app-softplan-imge
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - dbpostgres
+  dbpostgres:
+    image: "postgres:9.5.16-alpine"
+    ports:
+      - "5432:5432"
+    container_name: "softplan_database"
+    environment:
+      - POSTGRES_DB=softplanDB
+      - POSTGRES_USER=softplan
+      - POSTGRES_PASSWORD=softplan
