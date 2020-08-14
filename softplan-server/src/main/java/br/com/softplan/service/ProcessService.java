@@ -42,7 +42,7 @@ public class ProcessService {
 		
 		User currentUser = userService.getCurrentUser();
 		if (currentUser.getRole().getCode().equals(Role.Code.FINALIZADOR)) {
-			process.addAll(userProcessRepository.findByUserIdAndPeding(currentUser.getId()).stream()
+			process.addAll(userProcessRepository.findByUserIdAndPeding(currentUser.getId(), Boolean.TRUE).stream()
 					.map(up -> formatDto(up.getProcess()))
 					.collect(Collectors.toList()));
 		} else {

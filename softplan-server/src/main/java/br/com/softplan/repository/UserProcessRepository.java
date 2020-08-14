@@ -14,8 +14,8 @@ public interface UserProcessRepository extends BaseRepository<UserProcess> {
 	
 	List<UserProcess> findByProcessId(String processId);
 	
-	@Query("SELECT up FROM UserProcess up WHERE up.user.id = :userId AND up.process.peding = FALSE")
-	List<UserProcess> findByUserIdAndPeding(String userId);
+	@Query("SELECT up FROM UserProcess up WHERE up.user.id = :userId AND up.process.peding = :peding ")
+	List<UserProcess> findByUserIdAndPeding(String userId, Boolean peding);
 	
 	void deleteByProcessId(String processId);
 	
