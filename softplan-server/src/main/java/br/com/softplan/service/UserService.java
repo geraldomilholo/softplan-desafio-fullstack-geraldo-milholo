@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,11 @@ public class UserService {
 	@Autowired
 	private RoleRepository roleRepository;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	private static final String DEFAULT_PASSWORD = "password";
+	
 	public List<UserDTO> findAll() {
 		return userRepository.findAll().stream()
 				.map(u -> copyComponent.copyEntityToDto(u, UserDTO.class))
@@ -48,6 +54,7 @@ public class UserService {
 		
 		User user = copyComponent.copyDtoToEntity(userPostDTO, User.class);
 		user.setRole(roleRepository.findByCode(userPostDTO.getRole()));
+		user.setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
 		
 		if (user.getId() == null && userRepository.existsByEmail(user.getEmail())) {
 			throw new EmailUserAlreadyTakenException(user.getEmail());
