@@ -28,9 +28,9 @@ public class ProcessController {
 		return ResponseEntity.ok(processService.findAll());
 	}
 
-	@GetMapping("/{userId}")
-	public ResponseEntity<ProcessDTO> findById(@PathVariable String userId) {
-		return ResponseEntity.ok(processService.findById(userId));
+	@GetMapping("/{processId}")
+	public ResponseEntity<ProcessDTO> findById(@PathVariable String processId) {
+		return ResponseEntity.ok(processService.findById(processId));
 	}
 	
 	@PostMapping
@@ -38,9 +38,9 @@ public class ProcessController {
 		return ResponseEntity.ok(processService.save(processDTO));
 	}
 	
-	@PutMapping("/{userId}")
-	public ResponseEntity<ProcessDTO> update(@PathVariable String userId, @RequestBody ProcessDTO processDTO) {
-		processDTO.setId(userId);
+	@PutMapping("/{processId}")
+	public ResponseEntity<ProcessDTO> update(@PathVariable String processId, @RequestBody ProcessDTO processDTO) {
+		processDTO.setId(processId);
 		return ResponseEntity.ok(processService.save(processDTO));
 	}
 	

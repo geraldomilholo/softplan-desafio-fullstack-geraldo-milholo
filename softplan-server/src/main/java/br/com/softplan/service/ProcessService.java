@@ -7,12 +7,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import br.com.softplan.component.CopyComponent;
 import br.com.softplan.exception.EntityNotFoundException;
 import br.com.softplan.model.Process;
 import br.com.softplan.model.Role;
 import br.com.softplan.model.User;
+import br.com.softplan.model.UserProcess;
 import br.com.softplan.model.dto.ProcessDTO;
 import br.com.softplan.repository.ProcessRepository;
 import br.com.softplan.repository.UserProcessRepository;
@@ -41,34 +43,51 @@ public class ProcessService {
 		User currentUser = userService.getCurrentUser();
 		if (currentUser.getRole().getCode().equals(Role.Code.FINALIZADOR)) {
 			process.addAll(userProcessRepository.findByUserIdAndPeding(currentUser.getId()).stream()
-					.map(up -> copyComponent.copyEntityToDto(up.getProcess(), ProcessDTO.class))
+					.map(up -> formatDto(up.getProcess()))
 					.collect(Collectors.toList()));
 		} else {
 			process.addAll(processRepository.findAll().stream()
-					.map(u -> copyComponent.copyEntityToDto(u, ProcessDTO.class))
+					.map(p -> formatDto(p))
 					.collect(Collectors.toList()));
 		}
 		
 		return process;
 	}
 	
-	public ProcessDTO findById(String userId) {
-		return processRepository.findById(userId)
-				.map(u -> copyComponent.copyEntityToDto(u, ProcessDTO.class))
+	private ProcessDTO formatDto(Process process) {
+		ProcessDTO processDTO = copyComponent.copyEntityToDto(process, ProcessDTO.class);
+		List<UserProcess> userProcesses = userProcessService.findByProcessId(process.getId());
+		
+		processDTO.setUsers(userProcesses.stream().map(up -> up.getUser().getId()).collect(Collectors.toList()));
+		processDTO.setUsersNames(userProcesses.stream().map(up -> up.getUser().getName()).collect(Collectors.toList()));
+		
+		return processDTO;
+	}
+	
+	public ProcessDTO findById(String processId) {
+		return processRepository.findById(processId)
+				.map(p -> formatDto(p))
 				.orElseThrow(() -> new EntityNotFoundException(Process.class));
 	}
 	
 	public ProcessDTO save(ProcessDTO processDTO) {
-		Process savedProcess = processRepository.save(copyComponent.copyDtoToEntity(processDTO, Process.class));
+		Process process = copyComponent.copyDtoToEntity(processDTO, Process.class);
+		if (!StringUtils.isEmpty(processDTO.getSeem())) {
+			process.setPeding(Boolean.FALSE);
+		} else {
+			process.setPeding(Boolean.TRUE);
+		}
 		
-		processDTO.setId(savedProcess.getId());
-		return processDTO;
+		Process savedProcess = processRepository.save(process);
+		userProcessService.vinculateUsers(savedProcess.getId(), processDTO.getUsers());
+		
+		return formatDto(savedProcess);
 	}
 
 	@Transactional
 	public void delete(String id) {
 		processRepository.findById(id).map(p -> {
-			userProcessService.deleteFromUserId(p.getId());
+			userProcessService.deleteFromProcessId(id);
 			processRepository.delete(p);
 			return p;
 		}).orElseThrow(() -> new EntityNotFoundException(Process.class));

@@ -1,5 +1,7 @@
 package br.com.softplan.model.dto;
 
+import java.util.List;
+
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -22,5 +24,9 @@ public class ProcessDTO {
 	private Boolean peding = Boolean.FALSE;
 	
 	private String seem;
+	
+	private List<String> users;
+	
+	private List<String> usersNames;
 	
 }

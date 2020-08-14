@@ -19,4 +19,7 @@ public interface UserProcessRepository extends BaseRepository<UserProcess> {
 	
 	void deleteByProcessId(String processId);
 	
+	@Query("SELECT up.user.id FROM UserProcess up WHERE up.process.id = :processId")
+	List<String> findUserIdsFromProcessId(String processId);
+	
 }
