@@ -57,7 +57,7 @@ const getTitle = (titles, hasRowActions) => {
 }
 
 const TableComponent = ({ rows, titles, headerTitle, deleteMessage, renderRows, hasRowActions, onEdit, onDelete, onAdd, showHeader, 
-  defaultRowsPerPage, actions, hasAdd, canDelete }) => {
+  defaultRowsPerPage, actions, hasAdd, canDelete, onRefresh }) => {
   
   const [deleteId, setDeleteId] = useState(null);
   const [open, setOpen] = useState(false);
@@ -112,19 +112,26 @@ const TableComponent = ({ rows, titles, headerTitle, deleteMessage, renderRows, 
     )
   }
 
-  const getHeaderActions = () => {
-    if (hasAdd) {
-      return <Button
+  const getHeaderActions = () => (
+    <>
+      <Button
+        className={classes.button}
+        color="primary" 
+        variant="contained" 
+        onClick={onRefresh}
+      > 
+        Atualizar
+      </Button>
+      {hasAdd && <Button
         className={classes.button}
         color="primary" 
         variant="contained" 
         onClick={onAdd}
       > 
         Novo
-      </Button> 
-    }
-    return ''
-  }
+      </Button>}
+    </>
+  )
 
   return (
     <>

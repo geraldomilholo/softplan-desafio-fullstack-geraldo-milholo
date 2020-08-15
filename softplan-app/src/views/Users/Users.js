@@ -67,6 +67,7 @@ const UserView = ({ fetchUsers, saveUser, updateUser, deleteUser, users }) => {
             onEdit={onEdit}
             onDelete={id => deleteUser(id)}
             onAdd={onAdd}
+            onRefresh={() => fetchUsers()}
           />
           <UserForm
             open={open}

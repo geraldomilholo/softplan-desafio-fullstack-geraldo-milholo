@@ -86,6 +86,7 @@ const ProcessView = ({ fetchProcesses, saveProcess, updateProcess, deleteProcess
             onEdit={onEdit}
             onDelete={id => deleteProcess(id)}
             onAdd={onAdd}
+            onRefresh={() => fetchProcesses()}
             canDelete={canDelete}
           />
           <ProcessForm
