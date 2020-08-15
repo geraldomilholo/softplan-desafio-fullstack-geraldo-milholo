@@ -76,16 +76,19 @@ function* update({ id, data }) {
     yield console.log('save process');
     yield put({ type: LoaderTypeActions.LOADER_SHOW });
     yield ProcessService.update(id, data);
+    yield put({ type: TypeActions.FETCH_PROCESSES });
     yield put({
       type: ToastTypeActions.TOAST_MESSAGE_SUCCESS,
       message: 'Processo salvo com sucesso!'
     });
+    yield put({ type: LoaderTypeActions.LOADER_HIDE });
   } catch (error) {
     yield console.log(error);
     yield put({
       type: ToastTypeActions.TOAST_MESSAGE_ERROR,
       message: 'Erro ao salvar o processo!'
     });
+    yield put({ type: LoaderTypeActions.LOADER_HIDE });
   }
 }
 

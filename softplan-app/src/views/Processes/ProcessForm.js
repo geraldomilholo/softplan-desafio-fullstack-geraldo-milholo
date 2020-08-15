@@ -90,7 +90,7 @@ const ProcessForm = ({ onCancel, onSave, open, processId, getProcessById, select
               label="Nome"
               name="name"
               isRequired
-              disabled={roleCode === 'FINALIZADOR'}
+              disabled={roleCode !== 'ADMIN' && values.id}
               onChange={handleChange}
               value={values.name}
             />
