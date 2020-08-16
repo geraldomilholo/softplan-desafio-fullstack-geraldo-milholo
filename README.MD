@@ -28,9 +28,10 @@
 
 - softplan-app
   
-  - Aplicação frontend
+  - Aplicação frontend ([Veja mais](softplan-app/README.md)) 
 
 - softplan-server
 
-  - Aplicação backend
+  - Aplicação backend ([Veja mais](softplan-server/README.md)) 
+
   
