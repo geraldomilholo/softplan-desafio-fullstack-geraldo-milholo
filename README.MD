@@ -24,14 +24,36 @@
 
 # Desenvolvimento
 
-### Estrutura
+## Estrutura
 
 - softplan-app
   
-  - Aplicação frontend ([Veja mais](softplan-app/README.md)) 
+  - Aplicação frontend ([Veja mais](softplan-app/README.md))
 
 - softplan-server
 
-  - Aplicação backend ([Veja mais](softplan-server/README.md)) 
+  - Aplicação backend ([Veja mais](softplan-server/README.md))
 
-  
+- database
+
+  - Banco de dados postgres no docker
+
+## Executando a aplicação
+
+1. Criar banco de dados
+
+```shel
+$ cd database && docker-compose up -d
+```
+
+2. Executar o backend
+
+```shel
+$ cd softplan-server && mvn spring-boot:run
+```
+
+3. Executar o frontend
+
+```shel
+$ cd softplan-app && yarn && yarn start
+```
